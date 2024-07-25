@@ -11,30 +11,29 @@ class BookListCreateAPIView(APIView):
     def get(self, request):
         books = Book.objects.all()
         serializer = BookSerializer(books, many=True)
-        return Response({"books": serializer.data})
+        return Response(serializer.data)
 
     def post(self, request):
         serializer = BookSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response({'book':serializer.data}, status=201)
+        return Response(serializer.validated_data, status=201)
 
 
 class BookRetrieveUpdateDeleteAPIView(APIView):
     def get(self, request, pk):
-        book = get_object_or_404(Book.objects.all(), pk=pk)
+        book = get_object_or_404(Book, pk=pk)
         serializer = BookSerializer(book)
-        return Response({"book": serializer.data})
+        return Response(serializer.data)
 
     def patch(self, request, pk):
-        saved_book = get_object_or_404(Book.objects.all(), pk=pk)
-        data = request.data.get("book")
-        serializer = BookSerializer(instance=saved_book, data=data, partial=True)
+        saved_book = get_object_or_404(Book, pk=pk)
+        serializer = BookSerializer(instance=saved_book, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response({'book':serializer.data}, status=200)
+        return Response(serializer.data)
 
     def delete(self, request, pk):
-        book = get_object_or_404(Book.objects.all(), pk=pk)
+        book = get_object_or_404(Book, pk=pk)
         book.delete()
-        return Response({"message": "Book with id `{}` has been deleted.".format(pk)}, status=204)
+        return Response(status=204)

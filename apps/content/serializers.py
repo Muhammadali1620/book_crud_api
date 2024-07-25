@@ -8,11 +8,9 @@ class BookSerializer(serializers.ModelSerializer):
         model = Book
         fields = ('id', 'title', 'author_full_name', 'description', 'image', 'price')
 
-
-# {
-# "title": "qichchu kitob",
-# "author_full_name": "Abdulla Qodiriy",
-# "description": "yomon zo'r kitob lekin",
-# "image": "",
-# "price": 20000
-# }
+{
+"title": "qichchu kitob",
+"author_full_name": "Abdulla Qodiriy",
+"description": "yomon zo'r kitob lekin",
+"price": 20000
+}
