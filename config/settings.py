@@ -3,7 +3,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY', 'test')
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -15,9 +15,7 @@ INTERNAL_IPS = [
     '127.0.0.1',
 ]
 
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000',
-]
+CORS_ALLOW_ALL_ORIGINS: True
 
 
 INSTALLED_APPS = [
